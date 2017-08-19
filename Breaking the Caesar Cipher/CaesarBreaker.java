@@ -38,5 +38,13 @@ public class CaesarBreaker {
         System.out.println(message);
     }
     
-    
+    public String halfOfString(String message, int start){
+        String halfMessage="";
+        for (int k= start; k<message.length();k++){
+            if ((k-start)%2==0) {
+                halfMessage=halfMessage+message.charAt(k);            
+            }
+        }
+        return halfMessage;
+    }
 }
