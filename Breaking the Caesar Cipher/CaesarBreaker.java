@@ -47,4 +47,24 @@ public class CaesarBreaker {
         }
         return halfMessage;
     }
+    
+    public int getKey(String s){
+        int [] freqs = countLetters(s);
+        int maxDex = maxIndex(freqs);
+        int dkey=maxDex-4;
+        if (maxDex<4){
+            dkey=26-(4-maxDex);
+        }
+        return dkey;    
+    }
+    public String decryptTwoKeys(String encrypted){
+         CaesarCipher cc=new CaesarCipher();
+         String halfString1=halfOfString(encrypted,0);
+         String halfString2=halfOfString(encrypted,1);
+         int key1=getKey(halfString1);
+         int key2=getKey(halfString2);
+         System.out.println("key1 is "+ key1+" and key2 is "+key2);
+         String decrypted=cc.encryptTwoKeys(encrypted,26-key1,26-key2);
+         return decrypted;
+    }
 }
