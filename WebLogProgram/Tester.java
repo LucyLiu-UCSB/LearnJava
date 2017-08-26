@@ -18,6 +18,34 @@ public class Tester
     }
     
     public void testLogAnalyzer() {
+        LogAnalyzer la= new LogAnalyzer();
+        la.readFile("shorttest_log");
+        la.printAll();
         // complete method
+    }
+    public void testUniqueIP(){
+        LogAnalyzer la= new LogAnalyzer();
+        la.readFile("short-test_log");
+        int uniqueIPs = la.countUniqueIPs();
+        System.out.println("There are "+uniqueIPs+"IPs.");
+    
+    }
+    public void testprintAllHigherThanNum(){
+        LogAnalyzer la= new LogAnalyzer();
+        la.readFile("short-test_log");
+        la.printAllHigherThanNum(100);
+    
+    }
+    public void testuniqueIPVisitsOnDay(){
+        LogAnalyzer la= new LogAnalyzer();
+        la.readFile("weblog-short_log");
+        la.uniqueIPVisitsOnDay("Sep 30");
+        
+    }
+      public void testcountUniqueIPsInRange(){
+        LogAnalyzer la= new LogAnalyzer();
+        la.readFile("short-test_log");
+        la.countUniqueIPsInRange(300,399);
+    
     }
 }
