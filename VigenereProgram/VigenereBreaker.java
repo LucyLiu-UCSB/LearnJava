@@ -2,10 +2,7 @@ import java.util.*;
 import edu.duke.*;
 
 public class VigenereBreaker {
-    FileResource fr;
-    public VigenereBreaker(){
-        fr= new FileResource();
-    }
+  
     public HashSet <String> readDictionary(FileResource fr){
         HashSet<String> sh= new HashSet<String>();
         for (String l:fr.lines()){
@@ -29,7 +26,7 @@ public class VigenereBreaker {
        String decryption = ""; 
        int maxCount=0;
        
-       for(int klength=0; klength<=100;klength++){
+       for(int klength=1; klength<=100;klength++){
            int[] keys=tryKeyLength(encrypted,klength,'e');
            VigenereCipher vc= new VigenereCipher(keys);
            String decrypted=vc.decrypt(encrypted);

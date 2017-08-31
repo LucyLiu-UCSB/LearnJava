@@ -52,6 +52,16 @@ public class Tester {
              System.out.println(keys[i]);
         }      
     }
-
+    public void testbreakForLanguage() {
+        FileResource fr=new FileResource();
+        String encrypted= fr.asString();
+        VigenereBreaker vb=new VigenereBreaker(); 
+        FileResource FileReDic=new FileResource("dictionaries/English");
+        HashSet<String> dic=vb.readDictionary(FileReDic);
+        String decrypted=vb.breakForLanguage(encrypted,dic);
+        System.out.println(decrypted);
+    
+        
+    }
 
 }
