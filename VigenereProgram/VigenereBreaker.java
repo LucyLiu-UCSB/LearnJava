@@ -2,6 +2,49 @@ import java.util.*;
 import edu.duke.*;
 
 public class VigenereBreaker {
+    FileResource fr;
+    public VigenereBreaker(){
+        fr= new FileResource();
+    }
+    public HashSet <String> readDictionary(FileResource fr){
+        HashSet<String> sh= new HashSet<String>();
+        for (String l:fr.lines()){
+            String lineLowerCase=l.toLowerCase();
+            sh.add(lineLowerCase);
+        }
+        return sh;
+    }
+    public int countWords(String message,HashSet<String> dictionary){
+        String[] stringArray=message.split("\\W+");
+        int count=0;
+        for(int i=0;i<stringArray.length;i++){
+            if(dictionary.contains(stringArray[i])){
+                count=count+1;
+            }            
+        }
+        return count;
+    }
+    
+    public String breakForLanguage(String encrypted,HashSet<String> dictionary){
+       String decryption = ""; 
+       int maxCount=0;
+       
+       for(int klength=0; klength<=100;klength++){
+           int[] keys=tryKeyLength(encrypted,klength,'e');
+           VigenereCipher vc= new VigenereCipher(keys);
+           String decrypted=vc.decrypt(encrypted);
+           int count=countWords(decrypted,dictionary);
+           if(count>maxCount){
+               maxCount=count;
+               int[] maxKey=keys;
+               decryption=decrypted;
+           }
+       }
+       //VigenereCipher vc= new VigenereCipher(maxKey);
+       //String decryption=vc.decrypt(encrypted);
+       return decryption;
+    }
+    
     public String sliceString(String message, int whichSlice, int totalSlices) {
         StringBuilder slice=new StringBuilder();
         int i=0;
@@ -39,5 +82,5 @@ public class VigenereBreaker {
         String res=vc.decrypt(frString);
         System.out.println(res);
     }
- 
+  
 }
