@@ -7,7 +7,10 @@ public class VigenereCipher {
     public VigenereCipher(int[] key) {
         ciphers = new CaesarCipher[key.length];
         for (int i = 0; i < key.length; i++) {
+            String trys="key 0 is"+key[i];//////////////////////////////////
+            System.out.println(trys);////////////////////////////////////
             ciphers[i] = new CaesarCipher(key[i]);
+            
         }
     }
     

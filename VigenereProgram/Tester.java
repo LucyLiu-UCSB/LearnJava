@@ -20,7 +20,13 @@ public class Tester {
         System.out.println(decrypt);
         
     }
-    
+   // public void testbreakForAllLangs(){
+        //FileResource fr = new FileResource("VigenereTestData/athens_keyflute.txt");
+       // String frString=fr.asString();
+       // String decryted= breakForAllLangs(frString, )
+        
+      
+   // }
     public void testCaesarCracker(){
         FileResource fr = new FileResource("VigenereTestData/oslusiadas_key17.txt");
         String frString=fr.asString();
@@ -63,5 +69,5 @@ public class Tester {
     
         
     }
-
+    
 }
