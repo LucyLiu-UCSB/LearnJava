@@ -16,7 +16,49 @@ public class EarthQuakeClient2 {
         
         return answer;
     } 
-
+    public void testMatchAllFilter(){
+        EarthQuakeParser parser = new EarthQuakeParser(); 
+        //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
+        String source = "data/nov20quakedatasmall.atom";
+        ArrayList<QuakeEntry> list  = parser.read(source);         
+        System.out.println("read data for "+list.size()+" quakes");
+        
+        MatchAllFilter maf= new MatchAllFilter();
+        Filter f1=new MagnitudeFilter(0.0, 2.0);
+        maf.addFilter (f1);
+        Filter f2=new DepthFilter(-100000.0, -10000.0);
+        maf.addFilter (f2);
+        Filter f3= new PhraseFilter("any","a");
+        maf.addFilter(f3);
+        ArrayList<QuakeEntry> res=filter(list, maf) ;
+        for (QuakeEntry qe: res) { 
+            System.out.println(qe);
+        } 
+    }
+    
+    public void testMatchAllFilter2(){
+        EarthQuakeParser parser= new EarthQuakeParser();
+        String source= "data/nov20quakedatasmall.atom";
+        ArrayList<QuakeEntry> list = parser.read(source);
+        System.out.println("read data for "+list.size()+" quakes");
+        
+        MatchAllFilter maf=new MatchAllFilter();
+        Filter f1=new MagnitudeFilter(0.0, 3.0);
+        Location loc= new Location(36.1314,-95.9372);
+        Filter f2= new DistanceFilter(loc,10000000 );        
+        Filter f3=new PhraseFilter("any","Ca");
+        
+        maf.addFilter(f1);
+        maf.addFilter(f2);
+        maf.addFilter(f3);
+        
+        ArrayList<QuakeEntry> res= filter(list,maf);
+        for (QuakeEntry qe: res) { 
+            System.out.println(qe);
+        } 
+        System.out.println(maf.getName());
+      
+    }
     public void quakesWithFilter() { 
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
