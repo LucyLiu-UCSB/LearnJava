@@ -26,15 +26,53 @@ public class QuakeSort {
     /* tester method to use in BlueJ */
     public void testSort(){
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedata.atom";
+        //String source = "data/nov20quakedata.atom";
+        String source = "data/earthquakeDataSampleSix1.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);
         //sortByMagnitude(list);
-        sortByLargestDepth(list);
+        //sortByLargestDepth(list);
+        //sortByMagnitudeWithBubbleSort(list);
+        sortByMagnitudeWithBubbleSortWithCheck(list);
         for(QuakeEntry qe: list) {
             System.out.println(qe);
         }
     }
+    public boolean checkInSortedOrder(ArrayList<QuakeEntry> quakes){
+        for(int i=0;i<quakes.size()-2;i++){
+            if (quakes.get(i).getMagnitude() > quakes.get(i+1).getMagnitude()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void onePassBubbleSort(ArrayList<QuakeEntry> quakeData,int numSorted){
+        for (int i = 0; i<quakeData.size()-numSorted-1;i++){
+            if (quakeData.get(i).getMagnitude()>quakeData.get(i+1).getMagnitude()){
+                QuakeEntry small=quakeData.get(i+1);
+                QuakeEntry big=quakeData.get(i);
+                quakeData.set(i,small);
+                quakeData.set(i+1, big);
+            }
+        }
+    }
+    public void sortByMagnitudeWithBubbleSort(ArrayList<QuakeEntry> in){
+        for(int i =0;i<in.size()-1;i++){
+            onePassBubbleSort(in, i);
+        }
+    }
+    
+    public void sortByMagnitudeWithBubbleSortWithCheck(ArrayList<QuakeEntry> in ){
+        for(int i =0;i<(in.size()-1);i++){
+            if (checkInSortedOrder(in)){
+                System.out.println("Passes number is "+i);
+                break;
+            }
+            onePassBubbleSort(in, i);
+        }
+    }
+    
     public int getLargestDepth (ArrayList<QuakeEntry> quakeData, int from){
         int maxInx=from;
         for (int i=from +1; i<quakeData.size();i++){
