@@ -23,6 +23,22 @@ public class QuakeSort {
             in.set(minIdx, qi);
         }
     }
+    
+    public void sortByMagnitudeWithCheck(ArrayList<QuakeEntry> in){
+        for(int i = 0; i < in.size(); i++) {
+            /* find the index of the smallest quake*/
+            if (checkInSortedOrder(in)){
+                System.out.println("Passes number is "+i);
+                break;
+            }
+            int minIdx = getSmallestMagnitude(in, i);
+            /* swap the ith quake with the minIdxth quake */
+            QuakeEntry qi = in.get(i);
+            QuakeEntry qmin = in.get(minIdx);
+            in.set(i, qmin);
+            in.set(minIdx, qi);
+        }
+    }
     /* tester method to use in BlueJ */
     public void testSort(){
         EarthQuakeParser parser = new EarthQuakeParser();
@@ -33,7 +49,8 @@ public class QuakeSort {
         //sortByMagnitude(list);
         //sortByLargestDepth(list);
         //sortByMagnitudeWithBubbleSort(list);
-        sortByMagnitudeWithBubbleSortWithCheck(list);
+        //sortByMagnitudeWithBubbleSortWithCheck(list);
+        sortByMagnitudeWithCheck(list);
         for(QuakeEntry qe: list) {
             System.out.println(qe);
         }
@@ -58,13 +75,13 @@ public class QuakeSort {
         }
     }
     public void sortByMagnitudeWithBubbleSort(ArrayList<QuakeEntry> in){
-        for(int i =0;i<in.size()-1;i++){
+        for(int i =0;i<(in.size()-1);i++){
             onePassBubbleSort(in, i);
         }
     }
     
     public void sortByMagnitudeWithBubbleSortWithCheck(ArrayList<QuakeEntry> in ){
-        for(int i =0;i<(in.size()-1);i++){
+        for(int i =0; i<in.size()-1;i++){
             if (checkInSortedOrder(in)){
                 System.out.println("Passes number is "+i);
                 break;
