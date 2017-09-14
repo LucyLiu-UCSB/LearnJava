@@ -16,10 +16,6 @@ public class Tester {
         st = st.replace('\n',' ');
         markov.setTraining(st);
         
-        ArrayList<String> res=markov.getFollows("t");
-        System.out.println(res);
-        System.out.println("res size is "+ res.size());
-        
         
     }
     
