@@ -24,8 +24,13 @@ public class MarkovWord implements IMarkovModel{
         myText = text.split("\\s+");
     }
     public int indexOf(String[] words, WordGram target, int start){
-       for (int k=start; k<words.length;k++){
-       if (words[k].equals(target)){
+       int targetL = target.length();
+       String[] stringK = new String[targetL];
+       //WordGram wgK=new WordGram();
+       for (int k=start; k<words.length-targetL+1;k++){           
+           System.arraycopy( words,  k,  stringK,  0,  targetL );
+           WordGram wgK=new WordGram(stringK,0,targetL);
+       if (wgK.equals(target)){
            return k;
        }
        }
@@ -52,19 +57,20 @@ public class MarkovWord implements IMarkovModel{
         return sb.toString().trim();
     }
     
-    public ArrayList<String> getFollows(String key) {
+    public ArrayList<String> getFollows(WordGram kGram) {
         //String text="this is just a test yes this is a simple test";
         //String[] myText=text.split("\\s+");
         //System.out.println(myText);
+        
         ArrayList<String> follows = new ArrayList<String>();
         int pos=0;
-        while ( pos<myText.length){
-            int start=indexOf(myText,key,pos);
+        while ( pos<myText.length-kGram.length()){
+            int start=indexOf(myText,kGram,pos);
             if(start==-1){
                 break;
             }
             pos=start+1;
-            follows.add(myText[pos]);
+            follows.add(myText[pos+kGram.length()-1]);
             
             
         }

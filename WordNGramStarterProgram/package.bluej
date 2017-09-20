@@ -31,6 +31,7 @@ target1.editor.x=4
 target1.editor.y=23
 target1.height=50
 target1.name=IMarkovModel
+target1.naviview.expanded=false
 target1.showInterface=false
 target1.type=InterfaceTarget
 target1.typeParameters=
