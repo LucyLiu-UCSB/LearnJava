@@ -23,6 +23,14 @@ public class WordGram {
             return myWords.length;
         }
     }
+    
+    public int hashCode(){
+        String ret = "";
+        for (String s:myWords){
+            ret=ret+s+" ";
+        }
+        return ret.trim().hashCode();
+    }
 
     public String toString(){
         String ret = "";
@@ -53,7 +61,7 @@ public class WordGram {
         for (int k =0;k<myWords.length-1;k++){
             res[k]=myWords[k+1];
         }
-        res[myWords.length]=word;
+        res[myWords.length-1]=word;
         WordGram out = new WordGram(res, 0, myWords.length);
         
        

@@ -36,26 +36,6 @@ public class MarkovWord implements IMarkovModel{
        }
        return -1;
     }
-    public String getRandomText(int numWords){
-        StringBuilder sb = new StringBuilder();
-        int index = myRandom.nextInt(myText.length-1);  // random word to start with
-        String key = myText[index];
-        sb.append(key);
-        sb.append(" ");
-        for(int k=0; k < numWords-1; k++){
-            ArrayList<String> follows = getFollows(key);
-            if (follows.size() == 0) {
-                break;
-            }
-            index = myRandom.nextInt(follows.size());
-            String next = follows.get(index);
-            sb.append(next);
-            sb.append(" ");
-            key = next;
-        }
-        
-        return sb.toString().trim();
-    }
     
     public ArrayList<String> getFollows(WordGram kGram) {
         //String text="this is just a test yes this is a simple test";
@@ -77,5 +57,28 @@ public class MarkovWord implements IMarkovModel{
         //System.out.println(follows);
         return follows;
     }
+    
+    public String getRandomText(int numWords){
+        StringBuilder sb = new StringBuilder();
+        int index = myRandom.nextInt(myText.length-myOrder);  // random word to start with
+        WordGram key = new WordGram(myText,index,myOrder);
+        sb.append(key);
+        sb.append(" ");
+        for(int k=0; k < numWords-myOrder; k++){
+            ArrayList<String> follows = getFollows(key);
+            if (follows.size() == 0) {
+                break;
+            }
+            index = myRandom.nextInt(follows.size());
+            String next = follows.get(index);
+            sb.append(next);
+            sb.append(" ");
+            key = key.shiftAdd(next);
+        }
+        
+        return sb.toString().trim();
+    }
+    
+    
 
 }
